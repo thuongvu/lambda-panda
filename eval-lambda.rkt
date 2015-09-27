@@ -53,14 +53,6 @@
       [`((λ (,v) ,b)      ,e)                               (substitute b v e)]))
 
 
-
-
-; TESTS for reducing
-;(eval-term `((λ(x) (x x))(λ(z) u)))
-;(eval-term `((λ(x)(x x)) (λ(x)(x x)) ))
-;(eval-term `((λ(y) (y a)) ((λ(x)x) (λ(z)((λ(u)u)z)) )  ))
-;(eval-term '(λ (z) ((λ (u) u) z)))
-
 ;TESTS for eval
 (eval-term `((λ(y) (y a)) (λ(x)x)    ))
 (eval-term `(λ(x)x) )
