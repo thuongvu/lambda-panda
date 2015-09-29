@@ -12,10 +12,10 @@
       [`(λ (,v) ,v) term]
 
       ; Application
-      [`((λ (,v1) ,b1) ,e)  (reduce-application (cons `(λ (,v1) ,b1) (cons (eval-term e) '() )))]
+       [`((λ (,v1) ,b1) ,e)  (reduce-application `(,(car term) ,(eval-term e)))]
 
       ; Application-abstraction
-      [`(,f ,e) (eval-term (cons (eval-term f) (cons (eval-term e) '() )))]
+      [`(,f ,e) `(,(eval-term f) ,e)]
     ))
 
 (define (reduce-application term)
@@ -26,18 +26,19 @@
       [`((λ (,v1) ,b1),   (and rhs `(λ (,v2) ,b2)))         (eval-term (substitute b1 v1 rhs))]
    
       ; (reducible-term1  reduced-term2)                  = (reduced-term1 reduced-term2) ==> evaluated-term
-      [`((λ (,v) ,b)      ,e)                               (substitute b v e)]))
+      [`((λ (,v) ,b)      ,e)                               (substitute b v e)]
+    ))
 
 
 ;TESTS for eval
-(eval-term `((λ(y) (y a)) (λ(x)x)    ))
-(eval-term `(λ(x)x) )
-(eval-term `((λ(x)x)y))
-(eval-term `((λ(x)x) (λ(x)x)) )
-(eval-term `((λ(y) (y a)) (λ(x)x)    ))
-(eval-term '((λ (x) x) a))
-(eval-term `( (λ (x) (x x)) (λ (y) y) )  )
-(eval-term `((λ(f) (f 7)) (λ (y) y)))
-(eval-term `((λ(f) (f 7)) ((λ (x) (x x)) (λ (y) y)) ))
-(eval-term `((λ(f) (f 7)) (λ(z) z)))
+(eval-term `((λ(y) (y a)) (λ(x)x)    )) ; 'a
+(eval-term `(λ(x)x) ) ;'(λ (x) x)
+(eval-term `((λ(x)x)y)) ; 'y
+(eval-term `((λ(x)x) (λ(x)x)) ) ;'(λ (x) x)
+(eval-term `((λ(y) (y a)) (λ(x)x)    )) ;'a
+(eval-term '((λ (x) x) a)) ;'a
+(eval-term `( (λ (x) (x x)) (λ (y) y) )  ) ;'(λ (y) y)
+(eval-term `((λ(f) (f 7)) (λ (y) y))) ;7
+(eval-term `((λ(f) (f 7)) ((λ (x) (x x)) (λ (y) y)) )) ;7
+(eval-term `((λ(f) (f 7)) (λ(z) z))) ;7
 ;(eval-term `((λ(x)(x x)) (λ(x)(x x))))
