@@ -11,15 +11,12 @@
       ; Identity
       [`(λ (,v) ,v) term]
 
-      ; Application: there are two scenarios to account for: the lhs or rhs are b-redexes.  
-      ; (reducible-term1            reducible-term2)      = (reducible-term1 reduced-term2)
-      [`((λ (,v1) ,b1),   (and rhs `(λ (,v2) ,b2)))         (substitute b1 v1 rhs)]
-   
-      ; (reducible-term1  reduced-term2)                  = (reduced-term1 reduced-term2) ==> evaluated-term
-      [`((λ (,v) ,b)      ,e)                               (substitute b v e)]
+      ; Application: there are two scenarios to account for: the lhs or rhs are b-redexes.
+      ; (reducible-term1      reducible-term2)             =  (reducible-term1 reduced-term2)
+      [`((λ (,v) ,b)         ,e)                              (substitute b v (cbv-reduce e))]
 
-      ; Application-abstraction
-      [`(,f ,e) `(,(cbv-reduce f) ,e)]
+      ; (reducible-term1      reduced-term2)               =  (reduced-term1    reduced-term2) ==> evaluated-term
+      [`(,f                   ,e)                            `(,(cbv-reduce f)  ,e)]
     ))
 
 (define (recursive-eval term)
