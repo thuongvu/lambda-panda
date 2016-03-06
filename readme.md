@@ -3,6 +3,7 @@ Lambda panda - lambda calculus programming language in Racket
 The goal of this racket module is to implement a lambda calculus interpreter in Racket.
 
 Usage:
+--------
 I recommend using [DrRacket], an IDE for writing code in Racket and running it.
 
 Open `call-by-value-eval.rkt` in DrRacket.
