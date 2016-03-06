@@ -26,14 +26,19 @@
 
 
 ;TESTS for eval
-(recursive-eval `((λ(y) (y a)) (λ(x)x)    ))               ; 'a
-(recursive-eval `(λ(x)x) )                                 ;'(λ (x) x)
-(recursive-eval `((λ(x)x)y))                               ; 'y
-(recursive-eval `((λ(x)x) (λ(x)x)) )                       ;'(λ (x) x)
-(recursive-eval `((λ(y) (y a)) (λ(x)x)    ))               ;'a
-(recursive-eval '((λ (x) x) a))                            ;'a
-(recursive-eval `( (λ (x) (x x)) (λ (y) y) )  )            ;'(λ (y) y)
-(recursive-eval `((λ(f) (f 7)) (λ (y) y)))                 ;7
-(recursive-eval `((λ(f) (f 7)) ((λ (x) (x x)) (λ (y) y)))) ;7
-(recursive-eval `((λ(f) (f 7)) (λ(z) z)))                  ;7
+;(recursive-eval `((λ(y) (y a)) (λ(x)x)    ))               ; 'a
+;(recursive-eval `(λ(x)x) )                                 ;'(λ (x) x)
+;(recursive-eval `((λ(x)x)y))                               ; 'y
+;(recursive-eval `((λ(x)x) (λ(x)x)) )                       ;'(λ (x) x)
+;(recursive-eval `((λ(y) (y a)) (λ(x)x)    ))               ;'a
+;(recursive-eval '((λ (x) x) a))                            ;'a
+;(recursive-eval `( (λ (x) (x x)) (λ (y) y) )  )            ;'(λ (y) y)
+;(recursive-eval `((λ(f) (f 7)) (λ (y) y)))                 ;7
+;(recursive-eval `((λ(f) (f 7)) ((λ (x) (x x)) (λ (y) y)))) ;7
+;(recursive-eval `((λ(f) (f 7)) (λ(z) z)))                  ;7
 ;(recursive-eval `((λ(x)(x x)) (λ(x)(x x))))
+
+; Display takes an argument of an expression.
+; When the REPL prompts you to enter an input, enter "((λ(y) (y a)) (λ(x)x)))" without the quoration marks,
+; and it will return "a".
+(display (recursive-eval (read)))
